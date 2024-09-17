@@ -8,7 +8,7 @@ class DatabaseService {
     async getDataTest() {
         try {
             if (collections.test) {
-                const data = (await collections.test.find({}).toArray());
+                const data = (await collections.test.find({test: 'test'}).toArray());
                 console.log(data);
                 return (data);
             }
@@ -16,6 +16,19 @@ class DatabaseService {
             return { error: error.message };
         }
     };
+
+    async findLimit() {
+        try {
+            if (collections.test) {
+                const data = (await collections.test.find().limit(2).toArray());
+                console.log(data);
+                return (data);
+            }
+        } catch (error: any) {
+            return { error: error.message };
+        }
+    }
+    
 
 
     
