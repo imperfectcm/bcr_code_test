@@ -1,16 +1,14 @@
-import CsvForm from "@/components/CsvForm";
-import { connectToDatabase } from "@/services/database.service";
+import CsvFormContainer from "@/components/CsvFormContainer";
+import Searchbar from "@/components/Searchbar";
 import { dbService } from "@/services/DatabaseService";
 import Image from "next/image";
 
-export default function Home() {
-  connectToDatabase();
-  dbService.getDataTest();
-  dbService.findLimit();
+export default async function Home() {
 
   return (
     <main>
-      <CsvForm />
+      <CsvFormContainer />
+      <Searchbar />
     </main>
   );
 }

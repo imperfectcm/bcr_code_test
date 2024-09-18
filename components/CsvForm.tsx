@@ -1,31 +1,42 @@
-"use client";
+
+import { Dispatch, SetStateAction } from 'react';
+import Dropzone from 'react-dropzone'
 
 
-const acceptableFileTypes = ".csv";
+interface CsvFormProps {
+    acceptableFileTypes: string;
+    onFileChangeHandler: (e: any) => void | { error: any };
+    fileName: string;
+    setFileName: Dispatch<SetStateAction<string>>
+    fileSize: string;
+    setFileSize: Dispatch<SetStateAction<string>>;
+}
 
-const CsvForm = () => {
+const CsvForm = (props: CsvFormProps) => {
 
-    const onFileChangeHandler = (e: any) => {
-        const file = e.target.files[0];
-        console.log(file);
-        // if (file) {
-        //     const reader = new FileReader();
-        //     reader.onload = (e: any) => {
-        //         const csvData = e.target.result;
-        //         // process CSV data here
-        //     };
-        //     reader.readAsText(file);
-        // } else {
-        //     console.log('No file selected.');
-        // }
+    const onDropHandler = (acceptedFiles: File[]) => {
+        props.onFileChangeHandler(acceptedFiles);
+        props.setFileName(acceptedFiles[0].name);
+        props.setFileSize((acceptedFiles[0].size / 1024).toFixed(2));
     }
 
     return (
         <section>
-            <label htmlFor="csvFileSelector"></label>
-            <input type="file" id="csvFileSelector" accept={acceptableFileTypes} onChange={onFileChangeHandler} />
+
+            <Dropzone accept={{ "text/csv": [".csv"] }} onDrop={onDropHandler} >
+                {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
+                    <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        {isDragActive ? "Drop your .csv file here!" : 'Click me or drag a .csv file to upload!'}
+                        {isDragReject && "File type not accepted, sorry!"}
+                    </div>
+                )}
+            </Dropzone>
+
+            {props.fileName ? `${props.fileName} - ${props.fileSize}kb` : ""}
+
         </section>
-    )
+    );
 }
 
 export default CsvForm;

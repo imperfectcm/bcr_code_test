@@ -15,7 +15,4 @@ export async function connectToDatabase() {
 
   collections.rugby = rugbyCollection;
   collections.test = testCollection;
-
-  console.log(`Successfully connected to database: ${db.databaseName} and collection: ${rugbyCollection.collectionName}`);
-  console.log(`Successfully connected to database: ${db.databaseName} and collection: ${testCollection.collectionName}`);
 }
