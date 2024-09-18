@@ -36,3 +36,16 @@ export async function POST(request: NextRequest) {
     }
 
 }
+
+
+export async function GET(request: NextRequest) {
+    await connectToDatabase();
+
+    try {
+        const res = await dbService.getAllData();
+        return new Response(JSON.stringify({ data: res }), { status: 200 });
+
+    } catch (error: any) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    }
+}

@@ -1,14 +1,23 @@
 
 import React, { Dispatch, FormEventHandler, SetStateAction } from "react";
 import { ChangeEvent, useEffect, useState } from "react"
+import Select, { SingleValue } from "react-select";
 
 
 interface SearchbarProps {
     input: string;
-    setInput: Dispatch<SetStateAction<string>>
+    setInput: Dispatch<SetStateAction<string>>;
+    titleList: string[];
+    setSelectedTitle: Dispatch<SetStateAction<string>>;
 }
 
 const Searchbar = (props: SearchbarProps) => {
+
+    const handleTitleChange = (e: SingleValue<{ value: string; label: string; }>) => {
+        if (e) {
+            props.setSelectedTitle(e.value);
+        }
+    };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         props.setInput(e.target.value);
@@ -25,8 +34,13 @@ const Searchbar = (props: SearchbarProps) => {
         console.log("Search with input: ", props.input);
     }
 
+    const titleOptions = props.titleList.map((key) => {
+        return { value: key, label: key }
+    })
+
     return (
         <form onSubmit={handleSubmit}>
+            <Select options={titleOptions} onChange={e => handleTitleChange(e)} />
             <input type="text" value={props.input}
                 onChange={e => handleInputChange(e)}
                 onKeyDown={e => handleKeyPress(e)}

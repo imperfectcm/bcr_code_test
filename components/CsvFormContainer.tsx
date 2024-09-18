@@ -16,7 +16,6 @@ const CsvFormContainer = () => {
 
     const onFileChangeHandler = (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
-        console.log("file: ", file)
 
         try {
             if (file) {
@@ -25,7 +24,6 @@ const CsvFormContainer = () => {
                     header: true,
                     complete: function (result) {
                         setCsvData(result.data);
-                        console.log("Finished: ", csvData)
                     }
                 })
             }

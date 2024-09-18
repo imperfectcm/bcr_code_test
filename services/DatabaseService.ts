@@ -23,8 +23,7 @@ class DatabaseService {
         try {
             if (collections.rugby) {
                 const res = await collections.rugby.find().toArray();
-                console.log(res.length);
-                return (res.length);
+                return (res);
             }
         } catch (error: any) {
             return { error: error.message };
@@ -45,7 +44,6 @@ class DatabaseService {
     }
 
 
-
     async insertRugbyData(data: Document[]) {
         try {
             if (collections.rugby) {
@@ -62,9 +60,10 @@ class DatabaseService {
     async getAllKeys() {
         try {
             if (collections.rugby) {
-                const keyList = await collections.rugby.findOne();
-                for (let key in keyList) {
-                    console.log(key);
+                const res = await collections.rugby.findOne();
+                let keyList: string[] = [];
+                for (let key in res) {
+                    keyList.push(key)
                 }
                 return keyList;
             }
@@ -79,7 +78,7 @@ class DatabaseService {
             if (collections.rugby) {
 
                 const result = { [key]: { $regex: new RegExp(value, 'i') } };
-                const res = await collections.rugby.find(result).limit(2).toArray();
+                const res = await collections.rugby.find(result).limit(5).toArray();
                 console.log(res)
 
                 return res
