@@ -34,6 +34,7 @@ const Searchbar = (props: SearchbarProps) => {
     };
 
     const handleSubmit = () => {
+        
         console.log("Search with input: ", props.input);
     }
 

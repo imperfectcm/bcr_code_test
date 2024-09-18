@@ -16,6 +16,39 @@ const SearchContainer = () => {
     const [resultData, setResultData] = useState<any>([]);
 
 
+    const getDataByValue = async () => {
+
+        try {
+
+            const res = await fetch(`/api/rugby-by-value?key=${selectedTitle}&value=${input}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+
+            setInput("")
+
+            if (!res.ok) {
+                return (res.json())
+            }
+
+            if (res.ok) {
+                setShowSearchResult(true);
+                const data = await res.json();
+
+                setResultData(data);
+            }
+
+        } catch (error: any) {
+            console.error(error);
+            return
+        }
+
+
+    }
+
+
     useEffect(() => {
         if (showSearchResult) return;
 

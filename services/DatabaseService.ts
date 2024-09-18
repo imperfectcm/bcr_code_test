@@ -30,6 +30,21 @@ class DatabaseService {
     }
 
 
+    async getDataByValue(key: string, value: string) {
+        try {
+            if (collections.rugby) {
+
+                const result = { [key]: { $regex: new RegExp(value, 'i') } };
+                const res = await collections.rugby.find(result).toArray();
+
+                return res
+            }
+        } catch (error: any) {
+            return { error: error.message };
+        }
+    }
+
+
     async isNewData(data: Document) {
         try {
             if (collections.rugby) {
