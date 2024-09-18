@@ -59,9 +59,33 @@ class DatabaseService {
     }
 
 
-    async searchData(input: string) {
-        if (collections.rugby) {
-            const res = await collections.rugby.find({ field: `/${input}/` })
+    async getAllKeys() {
+        try {
+            if (collections.rugby) {
+                const keyList = await collections.rugby.findOne();
+                for (let key in keyList) {
+                    console.log(key);
+                }
+                return keyList;
+            }
+        } catch (error: any) {
+            return { error: error.message };
+        }
+    }
+
+
+    async searchData(key: string, value: string) {
+        try {
+            if (collections.rugby) {
+
+                const result = { [key]: { $regex: new RegExp(value, 'i') } };
+                const res = await collections.rugby.find(result).limit(2).toArray();
+                console.log(res)
+
+                return res
+            }
+        } catch (error: any) {
+            return { error: error.message };
         }
     }
 
