@@ -1,5 +1,5 @@
 import CsvFormContainer from "@/components/CsvFormContainer";
-import Searchbar from "@/components/Searchbar";
+import SearchContainer from "@/components/SearchContainer";
 import { connectToDatabase } from "@/services/database.service";
 import { dbService } from "@/services/DatabaseService";
 import Image from "next/image";
@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <main>
       <CsvFormContainer />
-      <Searchbar />
+      <SearchContainer />
     </main>
   );
 }

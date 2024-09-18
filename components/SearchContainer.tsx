@@ -1,5 +1,8 @@
+"use client";
+
 import { ChangeEvent, useEffect, useState } from "react";
 import Searchbar from "./Searchbar";
+import SearchResultList from "./SearchResultList";
 
 
 const SearchContainer = () => {
@@ -30,34 +33,21 @@ const SearchContainer = () => {
         }
 
         liveSearch();
-
         return () => { };
 
     }, [input])
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInput(e.target.value);
-    };
-
-    // Event handler to trigger search when Enter key is pressed
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            console.log("Search triggered with input: ", input);
-        }
-    };
-
-    const handleSubmit = () => {
-        console.log("Search with input: ", input);
-    }
 
     return (
-        <Searchbar
-        input={input}
-        setSearchResult={setSearchResult}
-        handleInputChange={handleInputChange}
-        handleKeyPress={handleKeyPress}
-        handleSubmit={handleSubmit}
-         />
+        <article>
+            <Searchbar
+                input={input}
+                setInput={setInput}
+            />
+            <SearchResultList
+                searchResult={searchResult}
+            />
+        </article>
     )
 
 }
