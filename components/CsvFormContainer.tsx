@@ -58,7 +58,7 @@ const CsvFormContainer = () => {
 
 
     return (
-        <article>
+        <article className="mb-5 flex flex-col items-center">
             <CsvForm
                 acceptableFileTypes={acceptableFileTypes}
                 onFileChangeHandler={onFileChangeHandler}

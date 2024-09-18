@@ -21,19 +21,19 @@ const CsvForm = (props: CsvFormProps) => {
     }
 
     return (
-        <section>
+        <section className='w-full flex flex-col items-center mb-3'>
 
             <Dropzone accept={{ "text/csv": [".csv"] }} onDrop={onDropHandler} >
                 {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
-                    <div {...getRootProps()}>
+                    <div {...getRootProps()} className='csv-dropzone lg:text-2xl w-full min-h-32 lg:min-h-60'>
                         <input {...getInputProps()} />
-                        {isDragActive ? "Drop your .csv file here!" : 'Click me or drag a .csv file to upload!'}
-                        {isDragReject && "File type not accepted, sorry!"}
+                        {isDragActive ? <div>Drop your .csv file here!</div> : <div>Click me or drag a .csv file to upload!</div>}
+                        {isDragReject && <div className='text-red-700'>File type not accepted, sorry!</div>}
                     </div>
                 )}
             </Dropzone>
 
-            {props.fileName ? `${props.fileName} - ${props.fileSize}kb` : ""}
+            {props.fileName ? <div>{props.fileName} - {props.fileSize}kb</div> : ""}
 
         </section>
     );

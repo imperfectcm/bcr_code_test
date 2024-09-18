@@ -17,26 +17,6 @@ const SearchContainer = () => {
 
 
     useEffect(() => {
-
-        const getAllData = async () => {
-            const res = await fetch("/api/rugby", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-
-            const data = await res.json();
-            setResultData(data);
-        }
-
-        getAllData();
-        return () => { };
-
-    }, []);
-
-
-    useEffect(() => {
         if (showSearchResult) return;
 
         const getAllData = async () => {
@@ -47,7 +27,8 @@ const SearchContainer = () => {
                 },
             })
 
-            const data = await res.json();
+            const response = await res.json();
+            const data = response.data
             setResultData(data);
         }
 
@@ -107,15 +88,13 @@ const SearchContainer = () => {
 
     }, [input, selectedTitle])
 
-
     return (
         <article>
             <Searchbar
                 input={input}
                 setInput={setInput}
                 titleList={titleList}
-                setSelectedTitle={setSelectedTitle} />
-            <SearchResultList
+                setSelectedTitle={setSelectedTitle}
                 searchResult={searchResult} />
             <ResultDataContainer
                 resultData={resultData} />

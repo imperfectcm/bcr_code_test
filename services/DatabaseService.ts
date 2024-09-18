@@ -10,7 +10,6 @@ class DatabaseService {
         try {
             if (collections.test) {
                 const res = await collections.test.find().limit(2).toArray();
-                console.log(res);
                 return (res);
             }
         } catch (error: any) {
@@ -48,7 +47,6 @@ class DatabaseService {
         try {
             if (collections.rugby) {
                 const res = await collections.rugby.insertMany(data);
-                console.log(res);
                 return (res);
             }
         } catch (error: any) {
@@ -79,7 +77,6 @@ class DatabaseService {
 
                 const result = { [key]: { $regex: new RegExp(value, 'i') } };
                 const res = await collections.rugby.find(result).limit(5).toArray();
-                console.log(res)
 
                 return res
             }

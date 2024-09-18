@@ -10,7 +10,7 @@ export default async function Home() {
   // await dbService.getAllKeys();
 
   return (
-    <main>
+    <main className="p-5">
       <CsvFormContainer />
       <SearchContainer />
     </main>
