@@ -128,7 +128,8 @@ const SearchContainer = () => {
                 setInput={setInput}
                 titleList={titleList}
                 setSelectedTitle={setSelectedTitle}
-                searchResult={searchResult} />
+                searchResult={searchResult}
+                getDataByValue={getDataByValue} />
             <ResultDataContainer
                 resultData={resultData} />
         </article>

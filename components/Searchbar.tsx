@@ -11,6 +11,7 @@ interface SearchbarProps {
     titleList: string[];
     setSelectedTitle: Dispatch<SetStateAction<string>>;
     searchResult: any;
+    getDataByValue: () => Promise<any>;
 }
 
 
@@ -29,13 +30,12 @@ const Searchbar = (props: SearchbarProps) => {
     // Event handler to trigger search when Enter key is pressed
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            console.log("Search triggered with input: ", props.input);
+            props.getDataByValue();
         }
     };
 
     const handleSubmit = () => {
-        
-        console.log("Search with input: ", props.input);
+        props.getDataByValue();
     }
 
     const titleOptions = props.titleList.map((key) => {

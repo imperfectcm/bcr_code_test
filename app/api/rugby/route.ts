@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     try {
 
         if (allDataDuplicated)
-            return new Response(JSON.stringify({ message: "All data are duplicated" }), { status: 201 });
+            return new Response(JSON.stringify({ message: "All data are duplicated" }), { status: 400 });
 
         const res = await dbService.insertRugbyData(newDataList);
 
