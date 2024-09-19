@@ -5,6 +5,7 @@ import { ChangeEvent, useEffect, useState } from "react"
 import Select, { SingleValue } from "react-select";
 import LiveSearchResultList from "./LiveSearchResultList";
 import ResultDataContainer from "./ResultDataContainer";
+import { useRouter } from "next/navigation";
 
 
 interface SearchbarAndResultProps {
@@ -21,6 +22,11 @@ const SearchbarAndResult = (props: SearchbarAndResultProps) => {
     const [liveSearchResult, setLiveSearchResult] = useState<any[]>([]);
     const [resultData, setResultData] = useState<any>([]);
 
+    const router = useRouter();
+
+    const turnToUploadPage = async () => {
+        router.push("/")
+    }
 
     // need to set if for the library react_select
     const id = Date.now().toString();
@@ -122,6 +128,19 @@ const SearchbarAndResult = (props: SearchbarAndResultProps) => {
 
     return (
         <section className="relative">
+            {/* <div className="text-2xl text-center mb-5">Search Page</div> */}
+
+            <div className="w-full flex justify-between mb-5">
+                <div className="text-2xl text-center">Search Page</div>
+                <button className="py-0 sm:py-0 px-3 
+                bg-gradient-to-r from-slate-800 to-slate-700 
+                hover:from-teal-400 hover:to-blue-500 
+                text-sm sm:text-base text-neutral-100 
+                rounded-lg cursor-pointer"
+                    onClick={turnToUploadPage}>Upload Files</button>
+            </div>
+
+
             <form className="flex flex-col sm:flex-row w-full gap-1 mb-5" onSubmit={(e) => handleSubmit(e)}>
 
                 {isMounted ?
@@ -136,7 +155,7 @@ const SearchbarAndResult = (props: SearchbarAndResultProps) => {
                     <input type="text" value={searchInput}
                         onChange={e => handleInputChange(e)}
                         onKeyDown={e => handleKeyPress(e)}
-                        placeholder="Search the competition or team..."
+                        placeholder="Choose a title first before search..."
                         className="py-2 sm:py-0 grow px-3 rounded-lg" />
 
                     <button type="submit"

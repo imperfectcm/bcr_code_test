@@ -6,6 +6,7 @@ import CsvForm from "./CsvForm";
 import CsvFormBtn from "./CsvFormBtn";
 import { Flip, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/navigation";
 
 
 // csv form acceptable file
@@ -18,6 +19,12 @@ const CsvFormContainer = () => {
     const [fileSize, setFileSize] = useState<string>("");
     const [isUploading, setIsUploading] = useState(false);
     const [hasFile, setHasFile] = useState<boolean>(false);
+
+    const router = useRouter();
+
+    const turnToSearchPage = async () => {
+        router.push("/search")
+    }
 
 
     // csv upload file change
@@ -47,7 +54,7 @@ const CsvFormContainer = () => {
             autoClose: 2000,
             pauseOnHover: false,
             transition: Flip,
-            onClose: () => location.reload()
+            onClose: () => router.push("/search")
         })
     }
 
@@ -99,6 +106,18 @@ const CsvFormContainer = () => {
 
     return (
         <article className="mb-5 flex flex-col items-center">
+            {/* <div className="text-2xl mb-5">Upload Page</div> */}
+
+            <div className="w-full flex justify-between mb-5">
+                <div className="text-2xl text-center">Upload Page</div>
+                <button className="py-0 sm:py-0 px-3 
+                bg-gradient-to-r from-slate-800 to-slate-700 
+                hover:from-teal-400 hover:to-blue-500 
+                text-sm sm:text-base text-neutral-100 
+                rounded-lg cursor-pointer"
+                    onClick={turnToSearchPage}>To Search Page</button>
+            </div>
+
             <CsvForm
                 acceptableFileTypes={acceptableFileTypes}
                 onFileChangeHandler={onFileChangeHandler}
