@@ -21,11 +21,6 @@ body {
   }
 }
 
-.data-card {
-  background: var(--blue);
-  color: var(--offwhite)
-}
-
 .csv-dropzone {
   cursor: pointer;
   flex: 1;

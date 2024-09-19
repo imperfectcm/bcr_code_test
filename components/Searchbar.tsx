@@ -1,9 +1,10 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import React, { FormEvent } from "react";
 import { ChangeEvent, useEffect, useState } from "react"
 import Select, { SingleValue } from "react-select";
 import LiveSearchResultList from "./LiveSearchResultList";
+import ResultDataContainer from "./ResultDataContainer";
 
 
 interface SearchbarProps {
@@ -34,14 +35,17 @@ const Searchbar = (props: SearchbarProps) => {
 
     useEffect(() => {
         setTitleList(props.allKeys);
+        setResultData(props.defaultData)
         return () => { };
     }, [])
 
 
     // search results
-    async function getDataByValue() {
+    const getDataByValue = async () => {
 
-        const res = await fetch(`/api/rugby-by-value?key=key=home_team&value=Fijian`)
+        console.log(111)
+
+        const res = await fetch('/api/data?key=key=home_team&value=Fijian')
 
         setSearchInput("")
 
@@ -50,10 +54,15 @@ const Searchbar = (props: SearchbarProps) => {
         }
 
         const data = await res.json();
-        console.log("data: " + data)
+        console.log("data: ", data)
 
         setResultData(data);
         return data;
+    }
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        await e.preventDefault();
+        await getDataByValue();
     }
 
 
@@ -115,7 +124,7 @@ const Searchbar = (props: SearchbarProps) => {
 
     return (
         <section className="relative">
-            <form className="flex flex-col sm:flex-row w-full gap-1 mb-5">
+            <form className="flex flex-col sm:flex-row w-full gap-1 mb-5" onSubmit={(e) => handleSubmit(e)}>
 
                 {isMounted ?
                     <Select id={id}
@@ -132,15 +141,22 @@ const Searchbar = (props: SearchbarProps) => {
                         placeholder="Search the competition or team..."
                         className="py-2 sm:py-0 grow px-3 rounded-lg" />
 
-                    <button type="submit" onClick={() => { getDataByValue }}
-                        className="py-2 sm:py-0 px-5 bg-slate-700 hover:bg-sky-500 hover:duration-200 text-neutral-100 rounded-lg cursor-pointer">Search</button>
+                    <button type="submit"
+                        className="py-2 sm:py-0 px-5 
+                        bg-gradient-to-r from-slate-800 to-slate-700 
+                        hover:from-teal-400 hover:to-blue-500
+                        text-neutral-100 rounded-lg cursor-pointer">Search</button>
 
                 </div>
+
 
             </form>
 
             <LiveSearchResultList
                 liveSearchResult={liveSearchResult} />
+
+            <ResultDataContainer
+                resultData={resultData} />
 
         </section>
     )
