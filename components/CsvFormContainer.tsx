@@ -1,19 +1,16 @@
 "use client";
 
 import Papa from "papaparse";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CsvForm from "./CsvForm";
 import CsvFormBtn from "./CsvFormBtn";
 import { Flip, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from "next/navigation";
 
 
 const acceptableFileTypes = ".csv";
 
 const CsvFormContainer = () => {
-
-    const router = useRouter();
 
     const [csvData, setCsvData] = useState<any[]>([]);
     const [fileName, setFileName] = useState<string>("");
@@ -44,7 +41,7 @@ const CsvFormContainer = () => {
             autoClose: 2000,
             pauseOnHover: false,
             transition: Flip,
-            onClose: () => router.refresh()
+            onClose: () => window.location.reload()
         })
     }
 
@@ -54,7 +51,7 @@ const CsvFormContainer = () => {
             autoClose: 2000,
             pauseOnHover: false,
             transition: Flip,
-            onClose: () => router.refresh()
+            onClose: () => window.location.reload()
         })
     }
 
@@ -63,7 +60,7 @@ const CsvFormContainer = () => {
         setIsUploading(true);
 
         try {
-            const res = await fetch("/api/rugby", {
+            const res = await fetch("/api/all-data", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -79,6 +76,8 @@ const CsvFormContainer = () => {
 
             const data = await res.json();
             console.log("Response: " + data.message)
+
+            setIsUploading(false);
 
             await toastPop(data);
 

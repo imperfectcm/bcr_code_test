@@ -6,9 +6,7 @@ interface ResultDataContainerProps {
 
 const ResultDataContainer = (props: ResultDataContainerProps) => {
 
-    if (props.resultData.length > 0) {
-
-        let resultData = props.resultData.map((result: any, index: number) => {
+        let displayData = props.resultData.map((result: any, index: number) => {
             return (
                 <div key={index} className="col-span-1 flex-1 flex flex-col place-items-center scale-95 hover:scale-100 duration-200 rounded-lg data-card py-5">
                     <div className="text-lg font-bold text-cyan-100">Competition:</div>
@@ -26,10 +24,10 @@ const ResultDataContainer = (props: ResultDataContainerProps) => {
 
         return (
             <section className="lg:w-full grid lg:grid-cols-4 sm:grid-cols-3 grid-flow-dense gap-3">
-                {resultData}
+                {displayData}
             </section>
         )
     }
-}
+
 
 export default ResultDataContainer;

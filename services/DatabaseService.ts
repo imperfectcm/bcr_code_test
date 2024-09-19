@@ -37,7 +37,7 @@ class DatabaseService {
                 const result = { [key]: { $regex: new RegExp(value, 'i') } };
                 const res = await collections.rugby.find(result).toArray();
 
-                return res
+                return res;
             }
         } catch (error: any) {
             return { error: error.message };

@@ -15,4 +15,7 @@ export async function connectToDatabase() {
 
   collections.rugby = rugbyCollection;
   // collections.test = testCollection;
+
+  // await client.close();
+
 }
