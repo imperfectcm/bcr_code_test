@@ -2,9 +2,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## The package manager of this project is Yarn.
 
+First, install the libraries:
+
+```bash
+yarn
+```
+
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 yarn dev
