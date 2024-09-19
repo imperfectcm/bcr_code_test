@@ -141,7 +141,7 @@ const SearchbarAndResult = (props: SearchbarAndResultProps) => {
             </div>
 
 
-            <form className="flex flex-col sm:flex-row w-full gap-1 mb-5" onSubmit={(e) => handleSubmit(e)}>
+            <form className="flex flex-col sm:flex-row w-full gap-3 mb-5" onSubmit={(e) => handleSubmit(e)}>
 
                 {isMounted ?
                     <Select id={id}
