@@ -1,17 +1,18 @@
 
-import Searchbar from "./Searchbar";
+import SearchbarAndResult from "./SearchbarAndResult";
 
 
 export async function getAllData() {
-    const res = await fetch("http://localhost:3000/api/all-data",{cache: 'force-cache'})
+    const res = await fetch("http://localhost:3000/api/all-data", { cache: 'no-store' })
 
     const data = await res.json();
 
     return data;
 }
 
+
 export async function getAllKeys() {
-    const res = await fetch("http://localhost:3000/api/collection-key",{cache: 'force-cache'})
+    const res = await fetch("http://localhost:3000/api/collection-key", { cache: 'no-store' })
 
     const titles = await res.json();
 
@@ -22,16 +23,13 @@ export async function getAllKeys() {
 const SearchContainer = async () => {
 
     const defaultData = await getAllData();
-
     const allKeys = await getAllKeys();
-
 
     return (
         <article>
-            <Searchbar
+            <SearchbarAndResult
                 defaultData={defaultData}
                 allKeys={allKeys} />
-            
         </article>
     )
 

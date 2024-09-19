@@ -8,6 +8,7 @@ import { Flip, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
+// csv form acceptable file
 const acceptableFileTypes = ".csv";
 
 const CsvFormContainer = () => {
@@ -16,7 +17,10 @@ const CsvFormContainer = () => {
     const [fileName, setFileName] = useState<string>("");
     const [fileSize, setFileSize] = useState<string>("");
     const [isUploading, setIsUploading] = useState(false);
+    const [hasFile, setHasFile] = useState<boolean>(false);
 
+
+    // csv upload file change
     const onFileChangeHandler = (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
 
@@ -35,25 +39,30 @@ const CsvFormContainer = () => {
         }
     }
 
+
+    // success toast reminder
     const toastPop = async (data: any) => {
         toast(`${data.message}`, {
             position: "top-center",
             autoClose: 2000,
             pauseOnHover: false,
             transition: Flip,
-            onClose: () => window.location.reload()
+            onClose: () => location.reload()
         })
     }
 
+
+    // fail toast reminder
     const errorToastPop = async (data: any) => {
         toast.error(`${data.message}`, {
             position: "top-center",
             autoClose: 2000,
             pauseOnHover: false,
             transition: Flip,
-            onClose: () => window.location.reload()
+            onClose: () => location.reload()
         })
     }
+
 
     const onFileSubmitHandler = async () => {
 
@@ -75,7 +84,6 @@ const CsvFormContainer = () => {
             }
 
             const data = await res.json();
-            console.log("Response: " + data.message)
 
             setIsUploading(false);
 
@@ -98,8 +106,10 @@ const CsvFormContainer = () => {
                 setFileName={setFileName}
                 fileSize={fileSize}
                 setFileSize={setFileSize}
+                setHasFile={setHasFile}
             />
             <CsvFormBtn
+                hasFile={hasFile}
                 onFileSubmitHandler={onFileSubmitHandler}
                 isUploading={isUploading}
             />

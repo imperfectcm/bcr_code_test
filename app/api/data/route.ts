@@ -16,7 +16,6 @@ export async function GET(request: NextRequest) {
 
     try {
         const res = await dbService.getDataByValue(key, value);
-        console.log("res: ", res)
 
         return new Response(JSON.stringify(res), { status: 200 })
 

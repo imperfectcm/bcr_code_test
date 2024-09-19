@@ -4,6 +4,7 @@ import { NextRequest } from "next/server";
 
 
 export async function POST(request: NextRequest) {
+    await connectToDatabase();
 
     const dataList = await request.json();
 
@@ -42,6 +43,9 @@ export async function GET(request: NextRequest) {
 
     try {
         const res = await dbService.getAllData();
+
+        if (!res) return new Response(JSON.stringify({ message: "No data found" }), { status: 404 });
+
         return new Response(JSON.stringify(res), { status: 200 });
 
     } catch (error: any) {

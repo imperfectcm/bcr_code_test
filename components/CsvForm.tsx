@@ -10,6 +10,7 @@ interface CsvFormProps {
     setFileName: Dispatch<SetStateAction<string>>
     fileSize: string;
     setFileSize: Dispatch<SetStateAction<string>>;
+    setHasFile: Dispatch<SetStateAction<boolean>>;
 }
 
 const CsvForm = (props: CsvFormProps) => {
@@ -18,6 +19,7 @@ const CsvForm = (props: CsvFormProps) => {
         props.onFileChangeHandler(acceptedFiles);
         props.setFileName(acceptedFiles[0].name);
         props.setFileSize((acceptedFiles[0].size / 1024).toFixed(2));
+        props.setHasFile(true);
     }
 
     return (

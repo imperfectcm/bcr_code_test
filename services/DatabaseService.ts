@@ -1,49 +1,10 @@
-import { InsertManyResult } from "mongodb";
-import { collections, connectToDatabase } from "./database.service";
+
+import { collections} from "./database.service";
 
 
 class DatabaseService {
 
     constructor() { }
-
-    async findLimit() {
-        try {
-            if (collections.test) {
-                const res = await collections.test.find().limit(2).toArray();
-                return (res);
-            }
-        } catch (error: any) {
-            return { error: error.message };
-        }
-    }
-
-
-    async getAllData() {
-        try {
-            if (collections.rugby) {
-                const res = await collections.rugby.find().toArray();
-                return (res);
-            }
-        } catch (error: any) {
-            return { error: error.message };
-        }
-    }
-
-
-    async getDataByValue(key: string, value: string) {
-        try {
-            if (collections.rugby) {
-
-                const result = { [key]: { $regex: new RegExp(value, 'i') } };
-                const res = await collections.rugby.find(result).toArray();
-
-                return res;
-            }
-        } catch (error: any) {
-            return { error: error.message };
-        }
-    }
-
 
     async isNewData(data: Document) {
         try {
@@ -70,6 +31,33 @@ class DatabaseService {
     }
 
 
+    async getAllData() {
+        try {
+            if (collections.rugby) {
+                const res = await collections.rugby.find().sort({fixture_datetime: 1}).toArray();
+                return (res);
+            }    
+        } catch (error: any) {
+            return { error: error.message };
+        }    
+    }    
+
+
+    async getDataByValue(key: string, value: string) {
+        try {
+            if (collections.rugby) {
+
+                const result = { [key]: { $regex: new RegExp(value, 'i') } };
+                const res = await collections.rugby.find(result).sort({fixture_datetime: 1}).toArray();
+
+                return res;
+            }    
+        } catch (error: any) {
+            return { error: error.message };
+        }    
+    }    
+
+
     async getAllKeys() {
         try {
             if (collections.rugby) {
@@ -91,7 +79,7 @@ class DatabaseService {
             if (collections.rugby) {
 
                 const result = { [key]: { $regex: new RegExp(value, 'i') } };
-                const res = await collections.rugby.find(result).limit(5).toArray();
+                const res = await collections.rugby.find(result).limit(5).sort({fixture_datetime: 1}).toArray();
 
                 return res
             }
@@ -99,8 +87,6 @@ class DatabaseService {
             return { error: error.message };
         }
     }
-
-
 
 }
 

@@ -12,14 +12,22 @@ const ResultDataContainer = (props: ResultDataContainerProps) => {
                 scale-95 hover:scale-100 duration-200
                 bg-sky-900 text-neutral-100
                 rounded-lg py-5">
-                <div className="text-lg font-bold text-sky-400">Competition:</div>
-                <div>{result.competition_name}</div>
-                <div className="text-lg font-bold text-sky-400">Start Time:</div>
-                <div>{result.fixture_datetime.replace(":00.000", "")}</div>
-                <div className="text-lg font-bold text-sky-400">Home Team:</div>
-                <div>{result.home_team}</div>
-                <div className="text-lg font-bold text-sky-400">Away Team:</div>
-                <div>{result.away_team}</div>
+
+                <div className="text-base sm:text-lg font-bold text-sky-400">Competition:</div>
+                <div className="text-sm mb-2 sm:text-base sm:mb-0 sm:mb-0">{result.competition_name}</div>
+
+                <div className="text-base sm:text-lg font-bold text-sky-400">Start Time:</div>
+                <div className="text-sm mb-2 sm:text-base sm:mb-0">{result.fixture_datetime.replace(":00.000", "")}</div>
+
+                <div className="text-base sm:text-lg font-bold text-sky-400">Round:</div>
+                <div className="text-sm mb-2 sm:text-base sm:mb-0">{result.fixture_round}</div>
+
+                <div className="text-base sm:text-lg font-bold text-sky-400">Home Team:</div>
+                <div className="text-sm mb-2 sm:text-base sm:mb-0">{result.home_team}</div>
+
+                <div className="text-base sm:text-lg font-bold text-sky-400">Away Team:</div>
+                <div className="text-sm sm:text-base">{result.away_team}</div>
+
             </div>
         )
     })

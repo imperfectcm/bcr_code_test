@@ -7,13 +7,13 @@ import LiveSearchResultList from "./LiveSearchResultList";
 import ResultDataContainer from "./ResultDataContainer";
 
 
-interface SearchbarProps {
+interface SearchbarAndResultProps {
     defaultData: any[];
     allKeys: any[];
 }
 
 
-const Searchbar = (props: SearchbarProps) => {
+const SearchbarAndResult = (props: SearchbarAndResultProps) => {
 
     const [searchInput, setSearchInput] = useState<string>("");
     const [titleList, setTitleList] = useState<any[]>([]);
@@ -27,12 +27,6 @@ const Searchbar = (props: SearchbarProps) => {
     const [isMounted, setIsMounted] = useState(false);
     useEffect(() => setIsMounted(true), []);
 
-
-    useEffect(() => {
-        console.log(resultData);
-        return () => { };
-    }, [resultData]);
-
     useEffect(() => {
         setTitleList(props.allKeys);
         setResultData(props.defaultData)
@@ -44,13 +38,13 @@ const Searchbar = (props: SearchbarProps) => {
     const getDataByValue = async () => {
 
         if (!searchInput) {
-            const res = await fetch("http://localhost:3000/api/all-data")
+            const res = await fetch("/api/all-data")
             const data = await res.json();
             setResultData(data);
             return data;
         }
 
-        const res = await fetch('/api/data?key=away_team&value=Fij')
+        const res = await fetch(`/api/data?key=${selectedTitle}&value=${searchInput}`)
 
         setSearchInput("")
 
@@ -59,7 +53,6 @@ const Searchbar = (props: SearchbarProps) => {
         }
 
         const data = await res.json();
-        console.log("data: ", data)
 
         setResultData(data);
         return data;
@@ -150,7 +143,8 @@ const Searchbar = (props: SearchbarProps) => {
                         className="py-2 sm:py-0 px-5 
                         bg-gradient-to-r from-slate-800 to-slate-700 
                         hover:from-teal-400 hover:to-blue-500
-                        text-neutral-100 rounded-lg cursor-pointer">Search</button>
+                        text-sm sm:text-base text-neutral-100 
+                        rounded-lg cursor-pointer">Search</button>
                 </div>
 
             </form>
@@ -165,4 +159,4 @@ const Searchbar = (props: SearchbarProps) => {
 
 };
 
-export default Searchbar;
+export default SearchbarAndResult;
