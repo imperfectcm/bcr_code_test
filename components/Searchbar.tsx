@@ -43,9 +43,14 @@ const Searchbar = (props: SearchbarProps) => {
     // search results
     const getDataByValue = async () => {
 
-        console.log(111)
+        if (!searchInput) {
+            const res = await fetch("http://localhost:3000/api/all-data")
+            const data = await res.json();
+            setResultData(data);
+            return data;
+        }
 
-        const res = await fetch('/api/data?key=key=home_team&value=Fijian')
+        const res = await fetch('/api/data?key=away_team&value=Fij')
 
         setSearchInput("")
 
@@ -146,9 +151,7 @@ const Searchbar = (props: SearchbarProps) => {
                         bg-gradient-to-r from-slate-800 to-slate-700 
                         hover:from-teal-400 hover:to-blue-500
                         text-neutral-100 rounded-lg cursor-pointer">Search</button>
-
                 </div>
-
 
             </form>
 
@@ -157,7 +160,6 @@ const Searchbar = (props: SearchbarProps) => {
 
             <ResultDataContainer
                 resultData={resultData} />
-
         </section>
     )
 
