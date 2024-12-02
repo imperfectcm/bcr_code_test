@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, install the libraries:
 
 ```bash
-yarn
+yarn install
 ```
 
 ## Getting Started
